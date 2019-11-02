@@ -13,7 +13,7 @@ class BaseAssetBundle extends AssetBundle {
     /**
      * @var string source assets path
      */
-    public $sourcePath = '@dlds/metronic/assets';
+    public $sourcePath = '@dlds/assets';
 
     public function init()
     {
