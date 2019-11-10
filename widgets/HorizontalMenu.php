@@ -160,7 +160,7 @@ class HorizontalMenu extends Menu {
     public function run()
     {
         Html::addCssClass($this->options, 'nav navbar-nav');
-        echo Html::beginTag('div', ['class' => 'page-actions']);
+        echo Html::beginTag('div', ['class' => 'hor-menu']);
         if ($this->route === null && Yii::$app->controller !== null)
         {
             $this->route = Yii::$app->controller->getRoute();
@@ -182,8 +182,7 @@ class HorizontalMenu extends Menu {
             // do not render seacrh box if not visible
             if ($this->search['visible'])
                 $data[] = Html::tag('li', $this->renderSearch());            
-        } 
-        $data[] = Html::tag('li', $this->renderSearch());
+        }
         echo Html::tag($tag, implode("\n", $data), $options);
         echo Html::endTag('div');
     }
@@ -360,9 +359,9 @@ class HorizontalMenu extends Menu {
         CoreActiveForm::begin($formOptions);
         echo '<div class="input-group">';
         echo Html::input('text', $inputOptions['name'], $inputOptions['value'], $inputOptions['options']);
-        echo '<div class="input-group-btn">';
-        echo '<button type="button" class="btn"></button>';
-        echo '</div>'; // end .input-group-btn
+        echo '<span class="input-group-btn"><a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a></span>';
+        //echo '<button type="button" class="btn"></button>';
+        //echo '</div>'; // end .input-group-btn
         echo '</div>'; // end .input-group
         echo '</div>'; // end .search-form
         CoreActiveForm::end();
