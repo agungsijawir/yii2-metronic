@@ -135,9 +135,14 @@ class HorizontalMenu extends Menu {
     public $search = ['visible' => true];
 
     /**
-     * @var array
+     * @var array list of HTML attributes to container `hor-menu` element.
      */
     public $horMenuClass = ['class' => 'hor-menu'];
+
+    /**
+     * @inheritdoc
+     */
+    public $itemOptions = ['aria-haspopup' => 'true', 'class' => 'menu-dropdown classic-menu-dropdown'];
 
     /**
      * @var string the template used to render a list of sub-menus.
@@ -342,7 +347,7 @@ class HorizontalMenu extends Menu {
      */
     protected function renderItem($item)
     {
-        $item['url'] = ArrayHelper::getValue($item, 'url', '#');
+        $item['url'] = ArrayHelper::getValue($item, 'url', null);
         $item['label'] = ArrayHelper::getValue($item, 'badge', '') . $item['label'];
         $item['icon'] = ArrayHelper::getValue($item, 'icon', '');
         if ($item['icon'])
@@ -352,7 +357,7 @@ class HorizontalMenu extends Menu {
         $template = ArrayHelper::getValue($item, 'template', $this->linkTemplate);
 
         return strtr($template, [
-            '{url}' => Url::toRoute($item['url']),
+            '{url}' => ($item['url'] == null || $item['url'] == false) ? 'javascript:;' : Url::toRoute($item['url']),
             '{label}' => $item['label'],
             '{icon}' => $item['icon'],
         ]);
