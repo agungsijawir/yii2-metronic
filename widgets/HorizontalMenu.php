@@ -192,9 +192,11 @@ class HorizontalMenu extends Menu {
      * @param array $items the menu items to be rendered recursively
      * @param integer $level Indicates the level of the menu items
      * @param integer $type Item type. Valid values are:
+     *  HorizontalMenu::ITEM_TYPE_LINK,
      *  HorizontalMenu::ITEM_TYPE_CLASSIC,
      *  HorizontalMenu::ITEM_TYPE_MEGA,
      *  HorizontalMenu::ITEM_TYPE_FULL_MEGA
+     *
      * @return string the rendering result
      */
     protected function renderItems($items, $level = 1, $type = null)
@@ -207,18 +209,22 @@ class HorizontalMenu extends Menu {
             $tag = ArrayHelper::remove($options, 'tag', 'li');
             $itemType = ($type === null) ? ArrayHelper::getValue($item, 'type', self::ITEM_TYPE_CLASSIC) : $type;
             $class = [];
+
             if ($item['active'])
             {
                 $class[] = $this->activeCssClass;
             }
+
             if ($i === 0 && $this->firstItemCssClass !== null)
             {
                 $class[] = $this->firstItemCssClass;
             }
+
             if ($i === $n - 1 && $this->lastItemCssClass !== null)
             {
                 $class[] = $this->lastItemCssClass;
             }
+
             if (!empty($class))
             {
                 if (empty($options['class']))
@@ -230,10 +236,20 @@ class HorizontalMenu extends Menu {
                     $options['class'] .= ' ' . implode(' ', $class);
                 }
             }
+
             if ($level == 1)
             {
                 Html::addCssClass($options, $itemType);
-                $item['template'] = ($itemType == self::ITEM_TYPE_CLASSIC) ? $this->dropdownLinkTemplate : $this->dropdownLinkMegaTemplate;
+                switch ($itemType) {
+                    case self::ITEM_TYPE_LINK:
+                        $item['template'] = $this->linkTemplate; break;
+                    case self::ITEM_TYPE_MEGA:
+                    case self::ITEM_TYPE_FULL_MEGA:
+                        $item['template'] = $this->dropdownLinkMegaTemplate; break;
+                    case self::ITEM_TYPE_CLASSIC:
+                    default:
+                        $item['template'] = $this->dropdownLinkTemplate; break;
+                }
                 if ($item['active'])
                 {
                     $item['label'] = Html::tag('span', '', ['class' => 'selected']) . $item['label'];
@@ -250,23 +266,13 @@ class HorizontalMenu extends Menu {
                     Html::addCssClass($options, 'dropdown-submenu');
                 }
             }
+
             if ($itemType == self::ITEM_TYPE_CLASSIC)
             {
                 $menu = $this->renderItem($item);
                 if (!empty($item['items']))
                 {
                     $menu .= strtr($this->submenuTemplate, [
-                        '{items}' => $this->renderItems($item['items'], $level + 1, $itemType),
-                        '{class}' => 'dropdown-menu',
-                    ]);
-                }
-            }
-            elseif ($itemType == self::ITEM_TYPE_LINK)
-            {
-                $menu = $this->renderItem($item);
-                if (!empty($item['items']))
-                {
-                    $menu .= strtr($this->linkTemplate, [
                         '{items}' => $this->renderItems($item['items'], $level + 1, $itemType),
                         '{class}' => 'dropdown-menu',
                     ]);
@@ -316,6 +322,7 @@ class HorizontalMenu extends Menu {
                     }
                 }
             }
+
             $lines[] = Html::tag($tag, $menu, $options);
         }
 
