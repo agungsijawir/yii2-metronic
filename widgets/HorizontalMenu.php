@@ -93,7 +93,7 @@ use yii\widgets\ActiveForm as CoreActiveForm;
  *
  */
 class HorizontalMenu extends Menu {
-
+    const ITEM_TYPE_LINK = 'link-only';
     const ITEM_TYPE_CLASSIC = 'classic-menu-dropdown';
     const ITEM_TYPE_MEGA = 'mega-menu-dropdown';
     const ITEM_TYPE_FULL_MEGA = 'mega-menu-dropdown mega-menu-full';
@@ -256,6 +256,17 @@ class HorizontalMenu extends Menu {
                 if (!empty($item['items']))
                 {
                     $menu .= strtr($this->submenuTemplate, [
+                        '{items}' => $this->renderItems($item['items'], $level + 1, $itemType),
+                        '{class}' => 'dropdown-menu',
+                    ]);
+                }
+            }
+            elseif ($itemType == self::ITEM_TYPE_LINK)
+            {
+                $menu = $this->renderItem($item);
+                if (!empty($item['items']))
+                {
+                    $menu .= strtr($this->linkTemplate, [
                         '{items}' => $this->renderItems($item['items'], $level + 1, $itemType),
                         '{class}' => 'dropdown-menu',
                     ]);
