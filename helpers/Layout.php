@@ -19,7 +19,7 @@ class Layout {
      * Retrieves Html options
      * @param string $tag given tag
      * @param boolean $asString if return as string
-     * @return type
+     * @return string|mixed
      */
     public static function getHtmlOptions($tag, $options = [], $asString = false)
     {
@@ -33,6 +33,7 @@ class Layout {
     /**
      * Adds body tag options
      * @param array $options given options
+     * @return mixed|array
      */
     private static function _bodyOptions($options)
     {
@@ -74,6 +75,7 @@ class Layout {
     /**
      * Adds header tag options
      * @param array $options given options
+     * @return mixed|array
      */
     private static function _headerOptions($options)
     {
@@ -94,6 +96,7 @@ class Layout {
     /**
      * Adds actions tag options
      * @param array $options given options
+     * @return mixed|array
      */
     private static function _actionsOptions($options)
     {
@@ -105,6 +108,7 @@ class Layout {
     /**
      * Adds top tag options
      * @param array $options given options
+     * @return mixed|array
      */
     private static function _topOptions($options)
     {
@@ -116,6 +120,7 @@ class Layout {
     /**
      * Adds topmenu tag options
      * @param array $options given options
+     * @return mixed|array
      */
     private static function _topmenuOptions($options)
     {
@@ -127,6 +132,7 @@ class Layout {
     /**
      * Adds container tag options
      * @param array $options given options
+     * @return mixed|array
      */
     private static function _containerOptions($options)
     {
@@ -138,6 +144,7 @@ class Layout {
     /**
      * Adds clearfix tag options
      * @param array $options given options
+     * @return mixed|array
      */
     private static function _clearfixOptions($options)
     {
