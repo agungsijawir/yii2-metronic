@@ -135,6 +135,11 @@ class HorizontalMenu extends Menu {
     public $search = ['visible' => true];
 
     /**
+     * @var array
+     */
+    public $horMenuClass = ['class' => 'hor-menu'];
+
+    /**
      * @var string the template used to render a list of sub-menus.
      * In this template, the token `{items}` will be replaced with the renderer sub-menu items.
      */
@@ -160,7 +165,7 @@ class HorizontalMenu extends Menu {
     public function run()
     {
         Html::addCssClass($this->options, 'nav navbar-nav');
-        echo Html::beginTag('div', ['class' => 'hor-menu']);
+        echo Html::beginTag('div', $this->horMenuClass);
         if ($this->route === null && Yii::$app->controller !== null)
         {
             $this->route = Yii::$app->controller->getRoute();
