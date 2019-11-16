@@ -14,6 +14,7 @@ use yii\helpers\Html;
 use yii\web\AssetBundle;
 use yii\base\InvalidConfigException;
 use dlds\metronic\bundles\ThemeAsset;
+use yii\web\View;
 
 /**
  * This is the class of Metronic Component
@@ -273,7 +274,7 @@ class Metronic extends \yii\base\Component
 
     /**
      * Get base url to metronic assets
-     * @param $view View
+     * @param $view \yii\web\View
      * @return string
      */
     public static function getAssetsUrl($view)
@@ -287,7 +288,7 @@ class Metronic extends \yii\base\Component
 
     /**
      * Register Theme Asset
-     * @param $view View
+     * @param $view \yii\web\View
      * @return AssetBundle
      */
     public static function registerThemeAsset($view)
