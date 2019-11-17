@@ -37,6 +37,7 @@ class ThemeAsset extends BaseAssetBundle {
         'layouts/{version}/scripts/layout.js',
         'layouts/{version}/scripts/demo.js',
         'layouts/global/scripts/quick-sidebar.js',
+        'layouts/global/scripts/quick-nav.js',
     ];
 
     /**
@@ -98,7 +99,7 @@ class ThemeAsset extends BaseAssetBundle {
     }
 
     private function _handleAddons() {
-        $controller = Yii::$app->controller->id .'/'. Yii::$app->controller->action->id;
+        $controller = Yii::$app->controller->id .'/'. (Yii::$app->controller->action == null) ? '' : Yii::$app->controller->action->id;
         if (array_key_exists($controller, $this->addons)) {
             $additional = $this->addons[$controller];
             if (array_key_exists('js',$additional) && is_array($additional['js'])) {
